@@ -970,6 +970,8 @@
       display: flex;
       justify-content: space-between;
       margin-top: 12px;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
     .seat-btn {
@@ -1171,6 +1173,135 @@
       font-size: 16px;
     }
 
+    /* ====== FAQ Page ====== */
+    .faq-container {
+      max-width: 900px;
+      margin: 30px auto;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      background: #fff;
+      overflow: hidden;
+      font-family: Tahoma, Arial, sans-serif;
+      box-shadow: var(--shadow);
+    }
+
+    .faq-header {
+      background: #032d70;
+      color: #fff;
+      padding: 16px 20px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #eee;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-question {
+      cursor: pointer;
+      padding: 14px 18px;
+      font-weight: bold;
+    }
+
+    .faq-answer {
+      padding: 0 18px 14px 18px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* ====== Traveler Rights Page ====== */
+    .traveler-rights-container {
+      padding: 20px;
+      background: #f0f8ff;
+      min-height: 100vh;
+    }
+
+    .rights-card {
+      background-color: #ffffff;
+      border-radius: 14px;
+      max-width: 900px;
+      margin: 0 auto 40px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .rights-card h2 {
+      font-size: 24px;
+      color: #032d70;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+
+    .lead {
+      font-size: 16px;
+      color: #617085;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .step {
+      display: flex;
+      gap: 15px;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+
+    .icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 10px;
+      background-color: #fff;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      flex-shrink: 0;
+      font-weight: bold;
+      color: #032d70;
+    }
+
+    .step h3 {
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: #032d70;
+    }
+
+    .step p {
+      font-size: 16px;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .list {
+      padding-left: 0;
+      margin-top: 8px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .list-item {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .bullet {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-top: 6px;
+      background-color: #0b67ff;
+      flex-shrink: 0;
+    }
+
     /* ====== Responsive Design ====== */
     @media(max-width:768px){
       .footer-inner {
@@ -1267,6 +1398,48 @@
       .passenger-tabs {
         justify-content: center;
       }
+
+      .seat-actions {
+        flex-direction: column;
+      }
+
+      .seat-btn {
+        width: 100%;
+      }
+
+      .faq-container {
+        margin: 20px 15px;
+      }
+      
+      .faq-header {
+        font-size: 18px;
+        padding: 14px 16px;
+      }
+      
+      .faq-question {
+        padding: 12px 16px;
+        font-size: 15px;
+      }
+      
+      .faq-answer {
+        padding: 0 16px 12px 16px;
+      }
+
+      .rights-card {
+        margin: 20px 15px;
+        padding: 20px;
+      }
+      
+      .step {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .icon {
+        width: 40px;
+        height: 40px;
+        font-size: 14px;
+      }
     }
 
     @media(max-width:400px){
@@ -1288,6 +1461,42 @@
       .services-ul {
         font-size: 13px;
         padding-left: 15px;
+      }
+
+      .faq-container {
+        margin: 15px 10px;
+      }
+      
+      .faq-header {
+        font-size: 16px;
+        padding: 12px 14px;
+      }
+      
+      .faq-question {
+        padding: 10px 14px;
+        font-size: 14px;
+      }
+      
+      .faq-answer {
+        padding: 0 14px 10px 14px;
+        font-size: 14px;
+      }
+
+      .rights-card {
+        margin: 15px 10px;
+        padding: 15px;
+      }
+      
+      .rights-card h2 {
+        font-size: 20px;
+      }
+      
+      .step h3 {
+        font-size: 16px;
+      }
+      
+      .step p {
+        font-size: 14px;
       }
     }
   </style>
@@ -1605,8 +1814,8 @@
             <h4>Company</h4>  
             <ul>
               <li><a href="#" onclick="navigateTo('services-page')">Services</a></li>
-              <li><a href="qu.html" target="_blank">Frequently Asked Questions</a></li>
-              <li><a href="f.html" target="_blank">Traveler's Rights</a></li>
+              <li><a href="#" onclick="navigateTo('faq-page')">Frequently Asked Questions</a></li>
+              <li><a href="#" onclick="navigateTo('traveler-rights-page')">Traveler's Rights</a></li>
             </ul>
           </nav>
 
@@ -1615,7 +1824,7 @@
             <h4>Sections</h4>
             <ul>
               <li><a href="#" onclick="navigateTo('services-page')">Services</a></li>
-              <li><a href="f.html" target="_blank">Traveler's Rights</a></li>
+              <li><a href="#" onclick="navigateTo('traveler-rights-page')">Traveler's Rights</a></li>
             </ul>
           </nav>
 
@@ -1819,6 +2028,161 @@
       </footer>
     </div>
 
+    <!-- ====== FAQ Page ====== -->
+    <div id="faq-page" class="page">
+      <div class="main-navbar">
+        <div class="logo">
+          <span>Blue Sky Airlines</span>
+          <img src="aarr.png" alt="Logo">
+        </div>
+        <button class="back-btn" onclick="navigateTo('main-page')">Back to Home</button>
+      </div>
+
+      <div class="faq-container">
+        <div class="faq-header">
+          Frequently Asked Questions (FAQs)
+        </div>
+      
+        <details class="faq-item">
+          <summary class="faq-question">
+            1. What is Blue Sky Airlines?
+          </summary>
+          <div class="faq-answer">
+            Blue Sky is a website dedicated to booking flights quickly and easily. We offer the best deals on flight tickets to various alternative destinations.
+          </div>
+        </details>
+      
+        <details class="faq-item">
+          <summary class="faq-question">
+            2. Are you looking for comprehensive information?
+          </summary>
+          <div class="faq-answer">
+            Yes, all procedures initiated on our website include additional taxes, unless they are waived before you notice.
+          </div>
+        </details>
+      
+        <details class="faq-item">
+          <summary class="faq-question">
+            3. How can I book a ticket through Blue Sky?
+          </summary>
+          <div class="faq-answer">
+            All you have to do is draw your line on the flight maps, then choose the aircraft and pay using the available payment methods. This will make it easy for you to receive the e-ticket directly to your email.
+          </div>
+        </details>
+      
+        <details class="faq-item">
+          <summary class="faq-question">
+            4. Can I modify or cancel my reservation after the reservation?
+          </summary>
+          <div class="faq-answer">
+            Yes, you can modify or cancel your reservation at the airline's discretion. Simply adhere to the terms and conditions clearly before canceling or amending.
+          </div>
+        </details>
+      
+        <details class="faq-item">
+          <summary class="faq-question">
+            5. What payment methods are available?
+          </summary>
+          <div class="faq-answer">
+            We offer secure options such as Mada, Visa, and Mastercard cards, as well as Apple Pay and other payment options.
+          </div>
+        </details>
+      
+        <details class="faq-item">
+          <summary class="faq-question">
+            6. Can I book more than one person at the same time?
+          </summary>
+          <div class="faq-answer">
+            Yes, you can book more than one passenger at the same time, whether they are elderly, children, or infants.
+          </div>
+        </details>
+      
+        <details class="faq-item">
+          <summary class="faq-question">
+            7. Is the Blue Sky website secure for booking?
+          </summary>
+          <div class="faq-answer">
+            Yes, we use the latest data encryption technology, but the experience is reliable and trustworthy.
+          </div>
+        </details>
+      
+        <details class="faq-item">
+          <summary class="faq-question">
+            8. Do you offer promotions or discounts?
+          </summary>
+          <div class="faq-answer">
+            Yes, we offer seasonal promotions and special, unofficial discounts. Follow our website or subscribe to our newsletter to receive the latest offers.
+          </div>
+        </details>
+      </div>
+      
+      <footer>
+        <p>©️ 2025 Blue Sky Airlines | All Rights Reserved</p>
+      </footer>
+    </div>
+
+    <!-- ====== Traveler Rights Page ====== -->
+    <div id="traveler-rights-page" class="page">
+      <div class="main-navbar">
+        <div class="logo">
+          <span>Blue Sky Airlines</span>
+          <img src="aarr.png" alt="Logo">
+        </div>
+        <button class="back-btn" onclick="navigateTo('main-page')">Back to Home</button>
+      </div>
+
+      <div class="traveler-rights-container">
+        <div class="rights-card">
+          <h2>Passenger Rights on an Airplane</h2>
+          <p class="lead">Know your rights in case of flight delays or cancellations — clear, practical, and easy to follow.</p>
+
+          <div class="section">
+            <div class="step">
+              <div class="icon">1</div>
+              <div>
+                <h3>Right to Information</h3>
+                <p>The airline must inform passengers <strong>immediately and clearly</strong> of any delay or cancellation, including expected departure time and reasons.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="icon">2</div>
+              <div>
+                <h3>Right to Assistance and Care</h3>
+                <p>Passengers receive assistance depending on delay length:</p>
+                <div class="list">
+                  <div class="list-item"><div class="bullet"></div><div><strong>After 1 hour:</strong> Refreshments and beverages.</div></div>
+                  <div class="list-item"><div class="bullet"></div><div><strong>After 3 hours:</strong> A convenient meal.</div></div>
+                  <div class="list-item"><div class="bullet"></div><div><strong>After 6 hours:</strong> Hotel accommodation and transport if necessary.</div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="icon">3</div>
+              <div>
+                <h3>Right to Compensation</h3>
+                <p>Compensation may be provided for long delays or cancellations. Amount depends on flight distance and delay duration according to regulations.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="icon">4</div>
+              <div>
+                <h3>Right to Refund</h3>
+                <p>If the delay exceeds two hours, passengers can request a full refund or choose alternative travel offered by the airline.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <p>Note: Guidelines may vary based on local regulations and airline policies.</p>
+        <p>©️ 2025 Blue Sky Airlines | All Rights Reserved</p>
+      </footer>
+    </div>
+
     <!-- ====== Booking Confirmation Page ====== -->
     <div id="end-page" class="page">
       <div class="main-navbar">
@@ -1891,6 +2255,7 @@
       }
     }
 
+    // باقي الكود يبقى كما هو بدون تغيير
     // ====== Authentication System ======
     
     // Initialize users in localStorage if not exists
@@ -2192,23 +2557,20 @@
         adultCount: adultCount,
         childCount: childCount,
         infantCount: infantCount,
-        selectedSeats: []
+        selectedSeats: {}
       };
       
       localStorage.setItem('currentBooking', JSON.stringify(bookingData));
       
-      if (adultCount > 1 || childCount > 0) {
-        navigateTo('multi-seat-selection-page');
-      } else {
-        // For single adult, use the old single seat selection
-        navigateTo('seat-selection-page');
-      }
+      // Always navigate to multi-seat selection page regardless of passenger count
+      navigateTo('multi-seat-selection-page');
     }
 
     // ====== Multi-Seat Selection System ======
     function initializeMultiSeatSelection() {
       const planeLayout = document.getElementById("plane-layout");
       const passengerTabs = document.getElementById("passenger-tabs");
+      const passengerSelection = document.getElementById("passenger-selection");
       const confirmBtn = document.getElementById("confirm-seat");
       const nextBtn = document.getElementById("next-passenger");
       const finishBtn = document.getElementById("finish-booking");
@@ -2236,7 +2598,15 @@
       passengerTabs.innerHTML = '';
       selectedSeatsList.innerHTML = '';
 
-      // Create passenger tabs
+      // Hide passenger tabs if there's only one passenger
+      if (totalPassengers <= 1) {
+        passengerSelection.style.display = 'none';
+        currentPassengerName.textContent = 'Select your seat';
+      } else {
+        passengerSelection.style.display = 'block';
+      }
+
+      // Create passenger tabs for multiple passengers
       for (let i = 1; i <= totalPassengers; i++) {
         const tab = document.createElement("div");
         tab.className = "passenger-tab";
@@ -2245,14 +2615,12 @@
         tab.dataset.passenger = i;
         
         tab.addEventListener("click", function() {
-          if (passengerSeats[i]) {
-            // Switch to this passenger
-            document.querySelectorAll('.passenger-tab').forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            currentPassenger = i;
-            updatePassengerDisplay();
-            loadSeatForPassenger(i);
-          }
+          // Switch to this passenger
+          document.querySelectorAll('.passenger-tab').forEach(t => t.classList.remove('active'));
+          this.classList.add('active');
+          currentPassenger = i;
+          updatePassengerDisplay();
+          loadSeatForPassenger(i);
         });
         
         passengerTabs.appendChild(tab);
@@ -2345,19 +2713,26 @@
 
       function updatePassengerDisplay() {
         passengerNum.textContent = currentPassenger;
-        currentPassengerName.textContent = `Selecting seat for: Passenger ${currentPassenger}`;
         
-        // Update tabs
-        document.querySelectorAll('.passenger-tab').forEach(tab => {
-          const passenger = parseInt(tab.dataset.passenger);
-          tab.classList.remove('completed', 'active');
-          if (passengerSeats[passenger]) {
-            tab.classList.add('completed');
-          }
-          if (passenger === currentPassenger) {
-            tab.classList.add('active');
-          }
-        });
+        if (totalPassengers > 1) {
+          currentPassengerName.textContent = `Selecting seat for: Passenger ${currentPassenger}`;
+        } else {
+          currentPassengerName.textContent = 'Select your seat';
+        }
+        
+        // Update tabs for multiple passengers
+        if (totalPassengers > 1) {
+          document.querySelectorAll('.passenger-tab').forEach(tab => {
+            const passenger = parseInt(tab.dataset.passenger);
+            tab.classList.remove('completed', 'active');
+            if (passengerSeats[passenger]) {
+              tab.classList.add('completed');
+            }
+            if (passenger === currentPassenger) {
+              tab.classList.add('active');
+            }
+          });
+        }
         
         // Update selected seats list
         selectedSeatsList.innerHTML = '<strong>Selected Seats:</strong><br>';
@@ -2368,8 +2743,17 @@
         // Update button visibility
         const allSeatsSelected = Object.keys(passengerSeats).length === totalPassengers;
         confirmBtn.style.display = !passengerSeats[currentPassenger] ? 'inline-block' : 'none';
-        nextBtn.style.display = passengerSeats[currentPassenger] && currentPassenger < totalPassengers ? 'inline-block' : 'none';
+        
+        // Show next button only if there are multiple passengers
+        nextBtn.style.display = (totalPassengers > 1 && passengerSeats[currentPassenger] && currentPassenger < totalPassengers) ? 'inline-block' : 'none';
+        
+        // Show finish button when all seats are selected
         finishBtn.style.display = allSeatsSelected ? 'inline-block' : 'none';
+        
+        // If there's only one passenger, show finish button after selecting a seat
+        if (totalPassengers === 1 && passengerSeats[1]) {
+          finishBtn.style.display = 'inline-block';
+        }
       }
 
       function loadSeatForPassenger(passenger) {
@@ -2409,7 +2793,10 @@
           passengerSeats[currentPassenger] = selectedSeat.dataset.code;
           updatePassengerDisplay();
           
-          if (currentPassenger < totalPassengers) {
+          // For single passenger, automatically proceed to finish
+          if (totalPassengers === 1) {
+            // No need to navigate, just update display to show finish button
+          } else if (currentPassenger < totalPassengers) {
             currentPassenger++;
             updatePassengerDisplay();
             loadSeatForPassenger(currentPassenger);
