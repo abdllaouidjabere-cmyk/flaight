@@ -1865,7 +1865,7 @@
       <div class="multi-seat-container">
         <h2 class="seat-selection-title">Choose Seats for All Passengers ✈️</h2>
 
-        <div class="passenger-selection">
+        <div class="passenger-selection" id="passenger-selection">
           <h3>Select Seats for Each Passenger</h3>
           <div class="passenger-tabs" id="passenger-tabs">
             <!-- Passenger tabs will be generated here -->
@@ -2255,7 +2255,6 @@
       }
     }
 
-    // باقي الكود يبقى كما هو بدون تغيير
     // ====== Authentication System ======
     
     // Initialize users in localStorage if not exists
@@ -2591,7 +2590,7 @@
 
       // Get booking data
       const bookingData = JSON.parse(localStorage.getItem('currentBooking') || '{}');
-      totalPassengers = bookingData.adultCount + bookingData.childCount;
+      totalPassengers = (bookingData.adultCount || 0) + (bookingData.childCount || 0);
 
       // Clear any existing content
       planeLayout.innerHTML = '';
