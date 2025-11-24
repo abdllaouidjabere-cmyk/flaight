@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <title>Blue Sky Airlines</title>
+  <link rel="icon" type="image/png" href="/air.jpg" sizes="96*96">
+  <link rel="stylesheet" href="ss.css">
+</head>
+<body >
+
+<!----------- الشريط العلوي فيه البحث واللوقو------------->
+<!-- NAVBAR -->
+<div style="display:flex;align-items:center;justify-content:center;gap:50px;padding:20px;background:#0b2f66;border-bottom:2px solid #062044;position:relative;border-radius:10px;margin:0 auto;width: 100%;">
+  <!-- اللوقو يسار + شفاف -->
+  <div style="display:flex;align-items:center;gap:10px;position:absolute;left:20px;height: 90px;height: 80px;">
+    <span style="color: #ccc;">Blue Sky Airlines</span>
+    <img src="aarr.png" alt="Logo" style="width:55px;height:55px;object-fit:contain;background:transparent;opacity:0.8;">
+  </div>
+
+  <!-- مربع البحث -->
+  <div class="between">
+    <input id="searchInput" type="text" placeholder="Search..." style="padding:12px;height: auto;width:200px;border:none;border-radius:50px;font-size:15px;">
+    <button onclick="showResult()" style="height: 35px;width:100px;padding: 10 20px;border:none;background:white;color:#0b2f66;border-radius:50px;font-size:15px;cursor:pointer;font-weight:bold;">Search</button>
+  </div>
+
+</div>
+
+<h2 id="resultText" style="text-align:center;margin-top:25px;color:#0b2f66;"></h2>
+
+<!---------مربع الصور ------------->
+<!-- 🔵 السلايدر -->
+<div id="slider"
+   style="position:relative; width:100%; height:70vh; overflow:hidden; margin: 0 auto;">
+</div>   
+
+<!-- ---------------------مربع الحجز------------------------- -->
+<div class="flight-container">
+
+  <!-- Logo Bar -->
+  <div class="logo-bar">
+    <img src="/air.jpg" alt="Logo" class="company-logo">
+    <span class="company-name">Blue Sky Airlines</span>
+  </div>
+
+  <!-- Tabs -->
+  <div class="flight-tabs">
+    <div class="flight-tab active" data-tab="economy">Economy Class</div>
+    <div class="flight-tab" data-tab="business">Business Class</div>
+    <div class="flight-tab" data-tab="first">First Class</div>
+  </div>
+
+  <!-- All tabs have same content -->
+  <div id="economy" class="tab-content-area active">
+    <h2 style="text-align: center; color: #103473;">Book a flight</h2>
+
+    <div class="city-row">
+      <div>
+        <label>From</label>
+        <select id="from">
+          <option value="ELQ">Qassim (ELQ)</option>
+          <option value="RUH">Riyadh (RUH)</option>
+          <option value="UK">United Kingdom (LHR)</option>
+          <option value="CDG">France (CDG)</option>
+          <option value="DME">Moscow (DME)</option>
+          <option value="CAI">Egypt (CAI)</option>
+          <option value="PEK">China (PEK)</option>
+          <option value="LAX">Los Angeles (LAX)</option>
+          <option value="BKK">Thailand (BKK)</option>
+          <option value="FCO">Italy (FCO)</option>
+          <option value="ITS">Türkiye (ITS)</option>
+          <option value="KUL">Malaysia (KUL)</option>
+          <option value="ICN">Korea (ICN)</option>
+
+        </select>
+      </div>
+      <div>
+        <label>To</label>
+        <select id="to">
+          <option value="ELQ">Qassim (ELQ)</option>
+          <option value="RUH">Riyadh (RUH)</option>
+          <option value="UK">United Kingdom (LHR)</option>
+          <option value="CDG">France (CDG)</option>
+          <option value="DME">Moscow (DME)</option>
+          <option value="CAI">Egypt (CAI)</option>
+          <option value="PEK">China (PEK)</option>
+          <option value="LAX">Los Angeles (LAX)</option>
+          <option value="BKK">Thailand (BKK)</option>
+          <option value="FCO">Italy (FCO)</option>
+          <option value="ITS">Türkiye (ITS)</option>
+          <option value="KUL">Malaysia (KUL)</option>
+          <option value="ICN">Korea (ICN)</option>
+   
+        </select>
+      </div>
+    </div>
+
+    <div class="date-row">
+      <div>
+        <label>Go</label>
+        <input type="date" id="goDate" style="width:130px; height:25px;">
+      </div>
+      <div>
+        <label>Return</label>
+        <input type="date" id="returnDate" style="width:130px; height:25px;">
+      </div>
+    </div>
+
+    <label>Travelers</label>
+    <input type="text" id="passengers" value="1 Adults " readonly onclick="togglePassengerBox(this)" style="width:120px; height:25px;">
+    <button onclick="search(this)">Search</button>
+    <div class="search-result-text"></div>
+
+    <div class="passenger-selector-box">
+      <div class="passenger-row">
+        <div class="passenger-label">
+          <span>Adults</span>
+          <small>+12 years</small>
+        </div>
+        <div class="passenger-controls">
+          <div class="counter-btn" onclick="changeCount(this,'adult',-1)">−</div>
+          <div class="passenger-count adult-count">1</div>
+          <div class="counter-btn" onclick="changeCount(this,'adult',1)">+</div>
+        </div>
+      </div>
+
+      <div class="passenger-row">
+        <div class="passenger-label">
+          <span>Children</span>
+          <small>3–11 years</small>
+        </div>
+        <div class="passenger-controls">
+          <div class="counter-btn" onclick="changeCount(this,'child',-1)">−</div>
+          <div class="passenger-count child-count">0</div>
+          <div class="counter-btn" onclick="changeCount(this,'child',1)">+</div>
+        </div>
+      </div>
+
+      <div class="passenger-row">
+        <div class="passenger-label">
+          <span>Infants</span>
+          <small>Under 2 years</small>
+        </div>
+        <div class="passenger-controls">
+          <div class="counter-btn" onclick="changeCount(this,'infant',-1)">−</div>
+          <div class="passenger-count infant-count">0</div>
+          <div class="counter-btn" onclick="changeCount(this,'infant',1)">+</div>
+        </div>
+      </div>
+
+      <button class="confirm-button" onclick="done(this)">Done</button>
+    </div>
+  </div>
+
+  <!-- Copy same content for business and first -->
+  <div id="business" class="tab-content-area"></div>
+  <div id="first" class="tab-content-area"></div>
+
+</div>
+
+<br><br><br>
+<div><h2>Our Special Offers</h2> </div><br>
+
+<div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+  <!-- فرنسا -->
+  <a href="end.html" 
+     style="position: relative; width: 250px; height: 350px; overflow: hidden; border-radius: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); cursor: pointer; color: white; text-decoration: none; transition: transform 0.3s;"
+     onmouseover="this.style.transform='scale(1.05)';"
+     onmouseout="this.style.transform='scale(1)';">
+     
+    <img src="fr.jpg" alt="فرنسا" 
+         style="width: 100%; height: 100%; object-fit: cover;">
+    <div style="position: absolute; bottom: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 20px;">
+      <div style="font-size: 22px; font-weight: bold;">France</div>
+      <div style="font-size: 16px; margin-top: 5px;">  219 ريال</div>
+      <div style="font-size: 14px; color: #ccc;">Economy class</div>
+    </div>
+  </a>
+
+  <!-- موسكو -->
+  <a href="end.html" 
+     style="position: relative; width: 250px; height: 350px; overflow: hidden; border-radius: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); cursor: pointer; color: white; text-decoration: none; transition: transform 0.3s;"
+     onmouseover="this.style.transform='scale(1.05)';"
+     onmouseout="this.style.transform='scale(1)';">
+     
+    <img src="ms.jpg" alt="موسكو" 
+         style="width: 100%; height: 100%; object-fit: cover;">
+    <div style="position: absolute; bottom: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 20px;">
+      <div style="font-size: 22px; font-weight: bold;">Moscow</div>
+      <div style="font-size: 16px; margin-top: 5px;"> من 219 </div>
+      <div style="font-size: 14px; color: #ccc;">Economy class</div>
+    </div>
+  </a>
+
+  <!-- بريطانيا -->
+  <a href="end.html" 
+     style="position: relative; width: 250px; height: 350px; overflow: hidden; border-radius: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); cursor: pointer; color: white; text-decoration: none; transition: transform 0.3s;"
+     onmouseover="this.style.transform='scale(1.05)';"
+     onmouseout="this.style.transform='scale(1)';">
+     
+    <img src="uk.jpg" alt="بريطانيا" 
+         style="width: 100%; height: 100%; object-fit: cover;">
+    <div style="position: absolute; bottom: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 20px;">
+      <div style="font-size: 22px; font-weight: bold;">United Kingdom</div>
+      <div style="font-size: 16px; margin-top: 5px;">  219 ريال</div>
+      <div style="font-size: 14px; color: #ccc;">Economy class</div>
+    </div>
+  </a>
+
+  <!-- تايلاند -->
+  <a href="end.html" 
+     style="position: relative; width: 250px; height: 350px; overflow: hidden; border-radius: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); cursor: pointer; color: white; text-decoration: none; transition: transform 0.3s;"
+     onmouseover="this.style.transform='scale(1.05)';"
+     onmouseout="this.style.transform='scale(1)';">
+     
+    <img src="th.jpg" alt="تايلاند" 
+         style="width: 100%; height: 100%; object-fit: cover;">
+    <div style="position: absolute; bottom: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 20px;">
+      <div style="font-size: 22px; font-weight: bold;">Thailand</div>
+      <div style="font-size: 16px; margin-top: 5px;">  219 ريال</div>
+      <div style="font-size: 14px; color: #ccc;">Economy class</div>
+    </div>
+  </a>
+
+    <!-- ايطاليا -->
+    <a href="end.html" 
+    style="position: relative; width: 250px; height: 350px; overflow: hidden; border-radius: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); cursor: pointer; color: white; text-decoration: none; transition: transform 0.3s;"
+    onmouseover="this.style.transform='scale(1.05)';"
+    onmouseout="this.style.transform='scale(1)';">
+    
+   <img src="roma.jpg" alt="ايطاليا" 
+        style="width: 100%; height: 100%; object-fit: cover;">
+   <div style="position: absolute; bottom: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 20px;">
+     <div style="font-size: 22px; font-weight: bold;">Italy</div>
+     <div style="font-size: 16px; margin-top: 5px;">  219 ريال</div>
+     <div style="font-size: 14px; color: #ccc;">Economy class</div>
+   </div>
+ </a>
+
+     <!-- كوريا -->
+     <a href="end.html" 
+     style="position: relative; width: 250px; height: 350px; overflow: hidden; border-radius: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); cursor: pointer; color: white; text-decoration: none; transition: transform 0.3s;"
+     onmouseover="this.style.transform='scale(1.05)';"
+     onmouseout="this.style.transform='scale(1)';">
+     
+    <img src="Korea.img.html" alt="كوريا" 
+         style="width: 100%; height: 100%; object-fit: cover;">
+    <div style="position: absolute; bottom: 0; width: 100%; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); padding: 20px;">
+      <div style="font-size: 22px; font-weight: bold;">Korea</div>
+      <div style="font-size: 16px; margin-top: 5px;">  219 ريال</div>
+      <div style="font-size: 14px; color: #ccc;">Economy class</div>
+    </div>
+  </a>
+
+</div>
+<br>
+<br>
+
+<!-- ========== Footer ========== -->
+<link rel="stylesheet" href="ss.css"/>
+
+<footer class="site-footer" dir="rtl">
+  <div class="footer-inner">
+
+    <!-- about -->
+    <section class="about">
+      <h3>Blue Sky Airlines Company</h3>
+
+
+      <ul class="social">
+        <li><a href="https://twitter.com" target="_blank"><i class="fa-brands fa-x-twitter"></i></a></li>
+        <li><a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a></li>
+        <li><a href="https://snapchat.com" target="_blank"><i class="fa-brands fa-snapchat"></i></a></li>
+        <li><a href="https://youtube.com" target="_blank"><i class="fa-brands fa-youtube"></i></a></li>
+      </ul>
+    </section>
+
+    <!-- column 1 -->
+    <nav class="col">
+      <h4>Company</h4>  
+      <ul>
+        <li><a href="about company.pdf"> About Company</a></li>
+        <li><a href="qu.html"target="_blank">Frequently Asked Questions</a></li>
+        <li><a href="f.html"target="_blank">Traveler's Rights</a></li>
+      </ul>
+    </nav>
+
+    <!-- column 2 -->
+    <nav class="col">
+      <h4>Sections</h4>
+      <ul>
+        <li><a href="services.html"target="_blank">Services</a></li>
+        <li><a href="f.html"target="_blank">Traveler's Rights</a></li>
+      </ul>
+    </nav>
+<!-- subscribe -->
+<div class="newsletter-section">
+  <h3 class="newsletter-title">Subscribe To The Newsletter</h3>
+
+  <div class="newsletter-box">
+    <input type="email" placeholder="Enter your email">
+    <button>Send</button>
+  </div>
+
+  <div class="payment-icons">
+    <img src="TabbyNew-tabby.png" alt="Tabby">
+    <img src="Visa.png" alt="Visa">
+    <img src="pay.png" alt="Apple Pay">
+    <img src="Mada-01 (1).png" alt="Mada">
+    <img src="t.png" alt="Tamara">
+  </div>
+</div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>All Rights Reserved To Blue Sky Company © 2025</p>
+  </div>
+</footer>
+
+
+<script>
+  //////////
+
+function searchBooking() {
+  let booking = document.getElementById('bookingInput').value;
+
+  if (booking.trim() === "") {
+    alert('الرجاء إدخال رقم الحجز');
+    return;
+  }
+
+  // مثال للنتيجة المبدئية
+  alert('تم البحث عن رقم الحجز: ' + booking);
+
+  // لاحقًا نربطها بـ API أو قاعدة بيانات
+}
+//////////
+  // بسيط: تغيير التبويبات
+  const tabss = document.querySelectorAll('.tab');
+  tabss.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabss.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+    });
+  });
+
+  // عرض الشرائح
+// الصور التي تريد عرضها
+const images = [
+    { src: "as.jpg", text: "& Comfort" },
+    { src: "sleep.jpg", text: "Relax & Comfort" },
+    { src: "qqq.jpg", text: "Your Journey Starts Here" },
+    { src: "senma.jpg", text: "Fly Beyond The Clouds" },
+    { src: "spa.jpg", text: "Premium Travel Experience" }
+];
+
+
+    const slider = document.getElementById("slider");
+    let current = 0;
+
+    // إنشاء طبقتين للصور
+    const img1 = document.createElement("img");
+    const img2 = document.createElement("img");
+
+// نفس تنسيق الصورتين
+[img1, img2].forEach(img => {
+    img.style.position = "absolute";
+    img.style.top = "0";
+    img.style.left = "0";
+    img.style.width = "100%";
+    img.style.height = "70vh";
+    img.style.objectFit = "cover";
+    img.style.objectPosition = "center";
+    img.style.transition = "opacity 2s";
+    img.style.borderRadius = "18px"; // 🌟 تدوير الحواف
+    img.style.opacity = "0";
+    slider.appendChild(img);
+});
+
+// 🔵 النص فوق الصورة
+const caption = document.createElement("div");
+caption.style.position = "absolute";
+caption.style.top = "50%";
+caption.style.left = "50%";
+caption.style.transform = "translate(-50%, -50%)";
+caption.style.color = "white";
+caption.style.fontSize = "42px";
+caption.style.fontWeight = "600";
+caption.style.textShadow = "0 4px 18px rgba(0,0,0,0.55)";  // ظل ناعم احترافي
+caption.style.opacity = "0";
+caption.style.transition = "opacity 1s";
+caption.style.textAlign = "center";
+caption.style.letterSpacing = "1px";
+caption.style.background = "transparent"; // ❌ إزالة المربع بالكامل
+slider.appendChild(caption);
+
+    // بداية التشغيل
+    img1.src = images[0].src;            // استخدم .src لأن images[0] كائن
+    caption.textContent = images[0].text; // عرض نص العنوان لأول صورة
+    img1.style.opacity = 1;
+    caption.style.opacity = 1;
+
+    function changeImage() {
+    current = (current + 1) % images.length;
+
+    caption.style.opacity = 0; // إخفاء النص أثناء الانتقال
+
+    setTimeout(() => {
+        if (img1.style.opacity == "1") {
+            img2.src = images[current].src;
+            img2.style.opacity = 1;
+            img1.style.opacity = 0;
+        } else {
+            img1.src = images[current].src;
+            img1.style.opacity = 1;
+            img2.style.opacity = 0;
+        }
+
+        caption.textContent = images[current].text; // تغيير النص
+        caption.style.opacity = 1; // إظهار النص
+
+    }, 400);
+}
+
+
+    setInterval(changeImage, 4000);
+  // نسخ المحتوى إلى التبويبات الأخرى
+  const economyContent = document.getElementById('economy').innerHTML;
+  document.getElementById('business').innerHTML = economyContent;
+  document.getElementById('first').innerHTML = economyContent;
+
+  // تحكم التبويبات
+  const tabs = document.querySelectorAll('.flight-tab');
+  const contents = document.querySelectorAll('.tab-content-area');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      contents.forEach(c => {
+        c.classList.remove('active');
+        c.style.opacity = 0;
+      });
+      const target = document.getElementById(tab.dataset.tab);
+      target.classList.add('active');
+      setTimeout(() => target.style.opacity = 1, 100);
+    });
+  });
+
+  const limits = { adult: [1, 9], child: [0, 9], infant: [0, 9] };
+
+  function togglePassengerBox(input) {
+    const box = input.parentElement.querySelector('.passenger-selector-box');
+    box.style.display = box.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function changeCount(btn, type, delta) {
+    const box = btn.closest('.passenger-selector-box');
+    const count = box.querySelector(`.${type}-count`);
+    let value = parseInt(count.textContent);
+    value += delta;
+    if (value < limits[type][0]) value = limits[type][0];
+    if (value > limits[type][1]) value = limits[type][1];
+    count.textContent = value;
+  }
+
+  function done(btn) {
+    const box = btn.closest('.passenger-selector-box');
+    const adult = box.querySelector('.adult-count').textContent;
+    const child = box.querySelector('.child-count').textContent;
+    const infant = box.querySelector('.infant-count').textContent;
+    const input = box.parentElement.querySelector('input[readonly]');
+    let text = `${adult} بالغ`;
+    if (child > 0) text += `، ${child} طفل`;
+    if (infant > 0) text += `، ${infant} رضيع`;
+    input.value = text;
+    box.style.display = 'none';
+  }
+
+  function search(btn) {
+    const section = btn.closest('.tab-content-area');
+    const from = section.querySelector('#from').value;
+    const to = section.querySelector('#to').value;
+    const date = section.querySelector('#goDate').value;
+    const passengers = section.querySelector('#passengers').value;
+    const result = section.querySelector('.search-result-text');
+
+    if (!date) {
+      result.textContent = 'Please select your travel date ✈️';
+      return;
+    }
+    result.textContent = `Flight searched from ${from} to ${to} on ${date} (${passengers})`;
+  }
+
+  // فورم الاشتراك
+  document.getElementById('subscribe-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = document.getElementById('news-email').value;
+    alert('تم الاشتراك بنجاح: ' + email);
+    this.reset();
+  });
+
+  // ====== منع تكرار نفس الوجهة في From و To لكل تبويب ======
+  function setupSelectSync(section) {
+    const fromSelect = section.querySelector('#from');
+    const toSelect = section.querySelector('#to');
+
+    if (!fromSelect || !toSelect) return;
+
+    function updateOptions(changedSelect, targetSelect) {
+      const selectedValue = changedSelect.value;
+      for (let option of targetSelect.options) {
+        option.hidden = false;
+      }
+      if (selectedValue) {
+        const optionToHide = targetSelect.querySelector(`option[value="${selectedValue}"]`);
+        if (optionToHide) optionToHide.hidden = true;
+      }
+    }
+
+    fromSelect.addEventListener('change', () => updateOptions(fromSelect, toSelect));
+    toSelect.addEventListener('change', () => updateOptions(toSelect, fromSelect));
+  }
+
+  document.querySelectorAll('.tab-content-area').forEach(section => setupSelectSync(section));
+</script>
+</body>
+</html>
