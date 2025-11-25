@@ -1040,6 +1040,8 @@
     .seat-color.reserved { background: #999; }
     .seat-color.vacant { background: #eee; border: 1px solid #ccc; }
     .seat-color.first-class { background: #f8d24b; }
+    .seat-color.business-class { background: #cd7f32; }
+    .seat-color.economy-class { background: #c0c0c0; }
 
     .seat-details {
       font-size: 14px;
@@ -2155,6 +2157,12 @@
         <div class="passenger-selection">
           <h2 style="color:#032d70;margin-bottom:15px;text-align:center;">Choose seats for all passengers ✈️</h2>
           
+          <!-- Special Offer Notice -->
+          <div id="special-offer-notice" style="display: none; background: #e7f3ff; border: 2px solid #007bff; border-radius: 10px; padding: 15px; margin-bottom: 20px; text-align: center;">
+            <h3 style="color: #007bff; margin: 0;">🎉 Special Offer Booking</h3>
+            <p style="margin: 10px 0 0 0; color: #333; font-weight: bold;">You are booking a special offer flight. Only Economy class seats are available for selection.</p>
+          </div>
+          
           <div class="passenger-tabs" id="passenger-tabs">
             <!-- Passenger tabs will be generated here -->
           </div>
@@ -3158,6 +3166,14 @@
       const childCount = bookingData.childCount || 0;
       const infantCount = bookingData.infantCount || 0;
       
+      // Check if this is a special offer booking
+      const isSpecialOffer = bookingData.specialOffer || false;
+      
+      // Show special offer notice if applicable
+      if (isSpecialOffer) {
+        document.getElementById('special-offer-notice').style.display = 'block';
+      }
+      
       // Create passenger list with proper naming
       const passengers = [];
       
@@ -3237,12 +3253,27 @@
 
             const seat = document.createElement("div");
             const code = `${r}${c}`;
-            const isOccupied = occupied.includes(code);
+            let isOccupied = occupied.includes(code);
 
             let color = "#eee";
-            if (r <= 4) color = "#f8d24b";      // gold - first
-            else if (r <= 8) color = "#cd7f32"; // bronze - business
-            else color = "#c0c0c0";             // silver - economy
+            let seatClassType = "";
+            if (r <= 4) {
+              color = "#f8d24b";      // gold - first
+              seatClassType = "First";
+            } else if (r <= 8) {
+              color = "#cd7f32"; // bronze - business
+              seatClassType = "Business";
+            } else {
+              color = "#c0c0c0";             // silver - economy
+              seatClassType = "Economy";
+            }
+
+            // ====== NEW: For special offers, disable First and Business classes ======
+            if (isSpecialOffer && r <= 8) {
+              // Mark First and Business class seats as occupied for special offers
+              isOccupied = true;
+              color = "#999"; // gray color for disabled seats
+            }
 
             let style = `
               width:32px;height:32px;margin:0 6px;cursor:pointer;
@@ -3250,7 +3281,6 @@
             `;
 
             if (isOccupied) {
-              color = "#28a745"; // green
               style += "cursor:not-allowed;";
             }
 
@@ -3266,7 +3296,7 @@
 
             seat.dataset.code = code;
             seat.dataset.row = r;
-            seat.dataset.class = (r <= 4 ? "First" : r <= 8 ? "Business" : "Economy");
+            seat.dataset.class = seatClassType;
             seat.dataset.price = (r <= 4 ? 5000 : r <= 8 ? 3000 : 1500) + " SR";
 
             if (!isOccupied) {
@@ -3288,6 +3318,9 @@
                   alert("This seat is already taken by another passenger!");
                 }
               });
+            } else if (isSpecialOffer && r <= 8) {
+              // Add tooltip for disabled seats in special offers
+              seat.title = "This seat class is not available for special offers";
             }
 
             row.appendChild(seat);
