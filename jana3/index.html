@@ -1991,7 +1991,7 @@
 
       <div class="offers-container">
         <!-- France -->
-        <div class="offer-card" onclick="navigateTo('end-page')">
+        <div class="offer-card" onclick="bookSpecialOffer('CDG', 'France')">
           <img src="fr.jpg" alt="France">
           <div class="offer-info">
             <div class="offer-title">France</div>
@@ -2001,7 +2001,7 @@
         </div>
 
         <!-- Moscow -->
-        <div class="offer-card" onclick="navigateTo('end-page')">
+        <div class="offer-card" onclick="bookSpecialOffer('DME', 'Moscow')">
           <img src="ms.jpg" alt="Moscow">
           <div class="offer-info">
             <div class="offer-title">Moscow</div>
@@ -2011,7 +2011,7 @@
         </div>
 
         <!-- UK -->
-        <div class="offer-card" onclick="navigateTo('end-page')">
+        <div class="offer-card" onclick="bookSpecialOffer('UK', 'United Kingdom')">
           <img src="uk.jpg" alt="United Kingdom">
           <div class="offer-info">
             <div class="offer-title">United Kingdom</div>
@@ -2021,7 +2021,7 @@
         </div>
 
         <!-- Thailand -->
-        <div class="offer-card" onclick="navigateTo('end-page')">
+        <div class="offer-card" onclick="bookSpecialOffer('BKK', 'Thailand')">
           <img src="th.jpg" alt="Thailand">
           <div class="offer-info">
             <div class="offer-title">Thailand</div>
@@ -2031,7 +2031,7 @@
         </div>
 
         <!-- Italy -->
-        <div class="offer-card" onclick="navigateTo('end-page')">
+        <div class="offer-card" onclick="bookSpecialOffer('FCO', 'Italy')">
           <img src="roma.jpg" alt="Italy">
           <div class="offer-info">
             <div class="offer-title">Italy</div>
@@ -2041,7 +2041,7 @@
         </div>
 
         <!-- Korea -->
-        <div class="offer-card" onclick="navigateTo('end-page')">
+        <div class="offer-card" onclick="bookSpecialOffer('ICN', 'Korea')">
           <img src="Korea.img.html" alt="Korea">
           <div class="offer-info">
             <div class="offer-title">Korea</div>
@@ -3059,6 +3059,49 @@
       localStorage.setItem('currentBooking', JSON.stringify(bookingData));
       
       // Always navigate to multi-seat selection page regardless of passenger count
+      navigateTo('multi-seat-selection-page');
+    }
+
+    // ====== NEW FUNCTION: Book Special Offer ======
+    function bookSpecialOffer(destinationCode, destinationName) {
+      // Get current selected departure city
+      const fromSelect = document.getElementById('from');
+      const fromCity = fromSelect.options[fromSelect.selectedIndex].text;
+      
+      // Set the destination in the booking form
+      const toSelect = document.getElementById('to');
+      toSelect.value = destinationCode;
+      
+      // Get current date and set departure date to tomorrow
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      const formattedDate = tomorrow.toISOString().split('T')[0];
+      document.getElementById('goDate').value = formattedDate;
+      
+      // Store booking data
+      const adultCount = parseInt(document.querySelector('.adult-count').textContent);
+      const childCount = parseInt(document.querySelector('.child-count').textContent);
+      const infantCount = parseInt(document.querySelector('.infant-count').textContent);
+      
+      const bookingData = {
+        from: fromSelect.value,
+        to: destinationCode,
+        date: formattedDate,
+        passengers: document.getElementById('passengers').value,
+        adultCount: adultCount,
+        childCount: childCount,
+        infantCount: infantCount,
+        selectedSeats: {},
+        specialOffer: true,
+        offerDestination: destinationName
+      };
+      
+      localStorage.setItem('currentBooking', JSON.stringify(bookingData));
+      
+      // Show confirmation message
+      alert(`Special offer booked! Flight from ${fromCity} to ${destinationName} on ${formattedDate}`);
+      
+      // Navigate to seat selection
       navigateTo('multi-seat-selection-page');
     }
 
